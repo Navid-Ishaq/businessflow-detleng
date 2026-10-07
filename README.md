@@ -1,6 +1,6 @@
 # DeTleng Business Flow
 
-A static browser application that creates new Excel reports without uploading source workbooks. Production domain: `businessflow.delteng.com` (spelling preserved exactly as supplied).
+A static browser application that creates new Excel reports without uploading source workbooks. Production domain: `businessflow.detleng.com` (confirmed production domain).
 
 ## Local review
 
@@ -69,3 +69,9 @@ Eight engine/export tests pass. Browser checks cover desktop, laptop, tablet, mo
 This execution sandbox cancels browser file saving for both generated XLSX and an independent plain-text download. The Download Excel link supplies verified XLSX bytes, but a normal-browser save needs manual confirmation outside this sandbox. The test harness reports this limitation explicitly and validates the linked bytes directly; it does not claim successful automated saving.
 
 Built-site verification: `npm run preview -- --port 5174`, then `node tests/production-smoke.mjs`. See `TEST_REPORT.md` for results.
+
+## GitHub Pages
+
+In GitHub Settings > Pages, change Source to GitHub Actions. Retain the custom domain businessflow.detleng.com. The workflow builds the app and uploads only dist, then deploys through the github-pages environment on a main-branch push or manual workflow dispatch. Enable Enforce HTTPS once GitHub makes it available.
+
+CI runs portable reporting-engine tests. The private workbook integration test is explicitly skipped when the original local sample is unavailable; the source workbook is never committed. Browser tests remain local because they depend on the local sample and browser executable.
