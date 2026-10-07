@@ -87,3 +87,8 @@ If the live page loads `/src/worker.js` or shows a 404 for `/mark.svg`, raw sour
 The wizard now follows Upload > Source > Columns > Roles > Reports > Generate. The final review provides accessible All Records, Current/Previous Month, Current/Previous Quarter, Current Year and Custom Range buttons, with an inclusive date range, matching record count and Generate action. Period buttons requiring dates are disabled until Date is mapped. Invalid or empty periods disable generation and remain editable.
 
 Export header and alternate-row fills apply only to selected report cells. Amount cells use a light-blue highlight from the first data row through the last data row; no row-wide or column-wide fills are used. Totals remain dynamic. Thirteen tests, browser workflow/accessibility checks and the production smoke pass for this revision; independent openpyxl checks confirm uncolored cells outside the exported area.
+
+## Analysis presentation — Notes 1 and 2
+
+All exported tables and KPI cards use left-aligned, vertically centered cells. Monetary displays use two decimal places while counts remain whole numbers. Analysis - Summary contains the tables; Analysis - Charts contains all analysis and optional group charts. Frozen navigation links connect the sheets and group tables.
+

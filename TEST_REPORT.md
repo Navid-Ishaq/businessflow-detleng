@@ -57,3 +57,8 @@ Validation: unit/OOXML tests; original browser regression suite; Analysis browse
 Native Excel testing found and fixed an incorrect drawing-part content type, then improved explicit axis visibility and chart colours. Regression assertions protect the drawing content type.
 
 Local samples: work/analysis-sample-final.xlsx and work/analysis-browser.xlsx (ignored, contain test data). No push or deployment. Automated download saving is canceled by this environment; blob bytes were independently saved/reopened, and prior user testing confirmed normal-browser download. No currency conversion; unavailable financial/date metrics are omitted or N/A.
+
+## Notes 1 and 2 verification
+
+20 automated tests passed. All three browser regression suites and the production build passed. Independent openpyxl reopening verified five charts on Analysis - Charts, no charts on other sheets, reciprocal navigation targets, frozen top rows, and preserved AutoFilter rules. Alignment and chart drawing placement are covered by regression assertions.
+
