@@ -81,3 +81,9 @@ CI runs portable reporting-engine tests. The private workbook integration test i
 Worker lifecycle is managed in `src/workbook-client.js`. Worker startup/runtime/message failures reach an actionable error instead of leaving the upload spinner running. Reading and worksheet inspection have a 60-second timeout; generation has a 120-second timeout. Cancel terminates the worker and ignores stale file reads. Retry reuses the selected in-memory File without uploading it. Loading shows an indeterminate progress indicator, elapsed seconds, and a reduced-motion-aware activity icon. Run `node tests/upload-recovery.mjs` to verify browser worker failure/retry/cancel behavior.
 
 If the live page loads `/src/worker.js` or shows a 404 for `/mark.svg`, raw source is being served instead of `dist`. Confirm Settings > Pages > Source is GitHub Actions, then run the Build and deploy Business Flow workflow. The Pages workflow must publish the built `dist` artifact.
+
+## Final period controls and Excel styling
+
+The wizard now follows Upload > Source > Columns > Roles > Reports > Generate. The final review provides accessible All Records, Current/Previous Month, Current/Previous Quarter, Current Year and Custom Range buttons, with an inclusive date range, matching record count and Generate action. Period buttons requiring dates are disabled until Date is mapped. Invalid or empty periods disable generation and remain editable.
+
+Export header and alternate-row fills apply only to selected report cells. Amount cells use a light-blue highlight from the first data row through the last data row; no row-wide or column-wide fills are used. Totals remain dynamic. Thirteen tests, browser workflow/accessibility checks and the production smoke pass for this revision; independent openpyxl checks confirm uncolored cells outside the exported area.
