@@ -49,7 +49,7 @@ Mixed currency summary totals are suppressed and a warning is shown. Flow sheets
 ## Current limitations
 
 - XLSX only, up to 20 MB; encrypted workbooks and legacy XLS are unsupported.
-- Analysis is deliberately a labeled extension placeholder pending the final KPI/chart specification.
+- Analysis includes 12 financial/count KPIs, date KPIs, time summaries, native Excel charts, ranked insights and optional universal Group By sheets. Currency sections remain separate. AutoFilter is enabled only on Report Data.
 - No real authentication or saved preferences/history. Temporary fields are cleared on close, mode switch and launch-message transition.
 - Text dates use ISO or explicitly chosen day/month/year or month/day/year formats. Ambiguous formats require user confirmation through that choice.
 - No currency conversion, accounting reconciliation, or arbitrary formula calculation. Financial arithmetic uses JavaScript numbers with compensated summation, subject to normal floating-point limits.

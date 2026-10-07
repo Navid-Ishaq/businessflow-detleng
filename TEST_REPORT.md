@@ -44,3 +44,16 @@ Sample: header row 5, 9 detected source columns, 94 records; 52 inflows totaling
 - Native Excel recalculation and Firefox/Safari/Edge behavior have not been verified. Financial calculations retain JavaScript floating-point limits.
 
 No GitHub push, deployment, external workbook upload, authentication integration, database or account service was performed.
+
+
+## Comprehensive Analysis / AutoFilter extension — 7 October 2026
+
+Implemented deterministic local analysis: 12 core KPIs, date KPIs, day/week/month/quarter/year summaries, native bar/line/doughnut charts, top-five group rankings, largest transactions and period highlights. Universal grouping supports any source column, all/one/selected values, searchable paginated selection, multiple sheets, date and Amount grouping, sorting, blank groups and optional top-ten charts. Monetary summaries partition mapped currencies.
+
+Sample reconciliation: 94 records, 52 inflows, 42 outflows; inflows 12,643.28, outflows -10,367.01, net 2,276.27. All-value group and time totals reconcile. Browser previews stop at 20 rows; full workbook retains all matching records.
+
+Validation: unit/OOXML tests; original browser regression suite; Analysis browser workflow including mobile overflow and accessibility; independent openpyxl chart/XML reopen. Native Microsoft Excel opened the final workbook without a repair prompt. Visually verified bar, line and two-colour doughnut charts, KPI cards, bounded row/column fills and styled group tables. Report Data filter dropdowns were visible; Inflows, Outflows, Analysis and grouped headers had none.
+
+Native Excel testing found and fixed an incorrect drawing-part content type, then improved explicit axis visibility and chart colours. Regression assertions protect the drawing content type.
+
+Local samples: work/analysis-sample-final.xlsx and work/analysis-browser.xlsx (ignored, contain test data). No push or deployment. Automated download saving is canceled by this environment; blob bytes were independently saved/reopened, and prior user testing confirmed normal-browser download. No currency conversion; unavailable financial/date metrics are omitted or N/A.
