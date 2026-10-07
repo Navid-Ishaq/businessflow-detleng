@@ -75,3 +75,9 @@ Built-site verification: `npm run preview -- --port 5174`, then `node tests/prod
 In GitHub Settings > Pages, change Source to GitHub Actions. Retain the custom domain businessflow.detleng.com. The workflow builds the app and uploads only dist, then deploys through the github-pages environment on a main-branch push or manual workflow dispatch. Enable Enforce HTTPS once GitHub makes it available.
 
 CI runs portable reporting-engine tests. The private workbook integration test is explicitly skipped when the original local sample is unavailable; the source workbook is never committed. Browser tests remain local because they depend on the local sample and browser executable.
+
+## Upload recovery
+
+Worker lifecycle is managed in `src/workbook-client.js`. Worker startup/runtime/message failures reach an actionable error instead of leaving the upload spinner running. Reading and worksheet inspection have a 60-second timeout; generation has a 120-second timeout. Cancel terminates the worker and ignores stale file reads. Retry reuses the selected in-memory File without uploading it. Loading shows an indeterminate progress indicator, elapsed seconds, and a reduced-motion-aware activity icon. Run `node tests/upload-recovery.mjs` to verify browser worker failure/retry/cancel behavior.
+
+If the live page loads `/src/worker.js` or shows a 404 for `/mark.svg`, raw source is being served instead of `dist`. Confirm Settings > Pages > Source is GitHub Actions, then run the Build and deploy Business Flow workflow. The Pages workflow must publish the built `dist` artifact.
