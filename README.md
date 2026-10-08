@@ -118,3 +118,8 @@ Blank files have no synthetic transactions, bounded styling/validation, a frozen
 Sample files use fictional entity pools, coherent IDs/products/categories, weighted activity, event-aware signs and cent-rounded reconciled values. Sample data is clearly labeled. Use in Business Flow feeds its in-memory normalized source model into the existing Create workflow with known roles prefilled; it does not automatically generate a report. Select reports/grouping/periods, open the same Live Analytics engine and reopen the processed report through Explore.
 
 Generation runs in a dedicated cancelable worker. No new backend, AI, CDN or data upload is involved. `npm run test:builder` covers the complete browser ecosystem, blank return, sample reupload, mobile, accessibility and local-only processing. Builder tests also run under `npm test`. See BUILDER.md and TEST_REPORT.md for architecture, reconciliation and limitations.
+# Product Quick Guide and origin story
+
+The optional **Business Flow Quick Guide** explains Build, Create, reporting, Live Analytics and saved-report return through short interactive scenes. **Behind Business Flow** separately tells the product's origin and evolution. Both preserve the workflow underneath them, support keyboard/Escape and reduced motion, and use fictional examples only.
+
+See [EXPERIENCES.md](EXPERIENCES.md) for architecture, state safety, verification and limitations. Run `npm run test:experiences` and `node tests/experience-quality.mjs` for the new browser checks.

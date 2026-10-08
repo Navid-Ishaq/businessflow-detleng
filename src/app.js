@@ -54,3 +54,17 @@ document.querySelectorAll('footer a[href^="#"],.brand').forEach(a=>a.addEventLis
 
 // Leaving the workspace releases analytics workers and uploaded-report references.
 document.querySelectorAll('#navigation a[href^="#"],footer a[href^="#"],.brand').forEach(a=>a.addEventListener('click',()=>{hideOtherViews();$('workspace').hidden=true;$('landing').hidden=false;}));
+
+
+import './experience.css';
+let informationOpen=false;
+const informationActions={build:startBuilder,create:start,explore:startExisting,home:()=>{document.querySelector('#main > :not([hidden])')?.scrollIntoView({block:'start'});},guide:()=>openInformation('guide'),story:()=>openInformation('story')};
+async function openInformation(kind){
+ if(informationOpen)return;informationOpen=true;
+ try{
+  const module=await (kind==='guide'?import('./guide-view.js'):import('./story-view.js'));
+  (kind==='guide'?module.openGuide:module.openStory)(informationActions,()=>informationOpen=false);
+ }catch(e){informationOpen=false;console.error(e);}
+}
+document.querySelectorAll('.quick-guide').forEach(button=>button.addEventListener('click',()=>openInformation('guide')));
+document.querySelectorAll('.behind-story').forEach(button=>button.addEventListener('click',()=>openInformation('story')));

@@ -11,7 +11,8 @@
     "test:live": "node tests/live-browser.mjs && node tests/live-edge-browser.mjs",
     "test:performance": "node tests/live-performance.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "test:builder": "node tests/builder-browser.mjs"
+    "test:builder": "node tests/builder-browser.mjs",
+    "test:experiences": "node tests/guide-browser.mjs && node tests/story-browser.mjs"
   },
   "dependencies": {
     "chart.js": "4.5.1",

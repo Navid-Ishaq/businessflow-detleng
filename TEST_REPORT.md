@@ -153,3 +153,25 @@ Microsoft Excel COM activation was attempted and returned `E_ACCESSDENIED`; nati
 Initial maximum is 5,000 rows/64 fields. Blank derived totals are owner-entered (automatic formulas are optional in the instruction and were not added); sample values are precomputed numeric values. Advanced profiles, multi-currency simulation, exchange conversion, ERP/database/accounts/cloud/AI and arbitrary formulas are excluded. Original Create/Explore operating limits still apply. Excel controls native numeric separators; the setting is explicitly labeled as a text-input convention.
 
 No business data leaves the browser. No AI/API/backend dependency was added. No Git commit/push or deployment was performed.
+
+## Tier 5 and Tier 6 product-polish verification
+
+Implemented the owner-facing Interactive Quick Guide first and verified it before adding the separate Behind Business Flow story. Both use the same accessible dialog shell and visual components while retaining separate content, instructional state and purpose.
+
+- Existing unit suite: 40 passed, 0 failed, 0 skipped.
+- Existing report browser suite: all three suites passed, including generated Excel, responsive/auth/privacy, edge files and Analysis/Group By behavior.
+- Existing Live Analytics browser and edge suites: passed.
+- Builder end-to-end suite: passed; 5,000 records, 858 ms sample generation in this run; 538,791.90 inflows, -313,251.32 outflows, 225,540.58 net, with exact current/report/reopened parity.
+- Large-data suite: 1k/10k/50k records passed, bounded tables/charts and responsive browser heartbeat. The 50k case opened in about 18.1 seconds on this run and filtered in 564 ms; timings depend on device load.
+- Quick Guide: all focused journeys/full tour, blank/sample choices, Amount signs/zero, periods, report sheets, sample filters/reset/Explorer, returning report, back/restart/exit and real workflow routes verified.
+- Story: opening, fictional clean/separate/reset, all seven milestones, saved-report return, three collaborator panels, care/closing, replay and guide cross-links verified.
+- Create configuration, Builder configuration and filtered Live Analytics state preserved after both informational overlays. Focus returned to the initiating control. Login shell remained functional.
+- All 14 scenes checked on mobile with axe: no serious/critical violations. Additional desktop/laptop/tablet/mobile checks and 320px overflow checks passed. Keyboard, native modal focus containment, Escape and reduced motion verified.
+- A transient text-contrast issue during reveals was fixed by removing opacity fading and strengthening instructional text contrast.
+- Built production workers/source upload/generation/saved-report reload and Live Analytics filters/mobile smoke checks passed without external data requests or page errors.
+- Final Vite build passed. Guide (~4.61 KB gzip), story (~4.26 KB gzip) and common shell (~0.71 KB gzip) load on demand. No new dependency or backend was added.
+- Final built-preview Quick Guide, story and all 14 mobile/axe scenes passed on port 4173 after the completed build, including all workflow CTAs and milestone cross-links.
+
+Limitations: illustrative guide scenarios and charts explain interactions; they do not process the owner's workbook. Target reading durations have not been confirmed in an independent user study. Automated axe/browser checks and visual inspection do not constitute a dedicated screen-reader or physical-device audit. Existing sandbox restrictions cancel automated downloads to disk; existing tests inspect the actual generated workbook bytes and reopen them.
+
+No real financial/private records appear in either new experience. Business data processing remains local. No commit, GitHub push or deployment was performed for Tier 5/6. Project HEAD remained 01e60f4.
