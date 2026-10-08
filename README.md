@@ -105,3 +105,16 @@ Overview, Flow, Trends, Groups, Transactions and Analytics Explorer provide curr
 Include Report Data and Amount in exported columns to reopen a monetary report later. Current-session analytics can use omitted source fields; reopened files can use only fields actually exported. No omitted source data is silently saved. Date is optional; unavailable time features are disabled. Legacy reports require Amount confirmation and explicit regional number/date choices.
 
 `npm run test:live` runs browser parity, accessibility, chart-value, security and edge-case checks. `npm run test:performance` benchmarks 1k/10k/50k file parsing and browser updates; `npm test` includes shared-engine/metadata/ZIP-guard tests. Details and limitations are in LIVE_ANALYTICS.md and TEST_REPORT.md.
+
+
+## Business Workbook Builder — Tier 4
+
+Build Your Workbook is the third entry beside Create and Explore. Six guided templates cover Sales & Orders, Products & Stock activity, Customers / Buyers activity, Suppliers / Purchases, Business Transactions and Complete Business. Custom Workbook supports general spreadsheets without requiring monetary roles.
+
+One schema defines both blank and synthetic sample outputs. Select fields, rename headings, move fields with keyboard-friendly controls, add/remove custom fields, choose real Excel types, assign optional unique roles and configure dropdown validation. Duplicate headings and ambiguous roles are rejected. Settings include a safe filename, 100–5,000 prepared/sample rows, native date formats, ISO currency and an explicit convention for subsequently entered text amounts. Excel's regional settings control displayed numeric separators; native values remain numeric.
+
+Blank files have no synthetic transactions, bounded styling/validation, a frozen row-1 header and working-data AutoFilter. Fill them later and upload through Create; versioned structural metadata restores unambiguous roles, identities and parsing preferences. Renamed/missing/duplicate headings remain available for manual confirmation instead of guessing. Empty prepared rows never become transactions.
+
+Sample files use fictional entity pools, coherent IDs/products/categories, weighted activity, event-aware signs and cent-rounded reconciled values. Sample data is clearly labeled. Use in Business Flow feeds its in-memory normalized source model into the existing Create workflow with known roles prefilled; it does not automatically generate a report. Select reports/grouping/periods, open the same Live Analytics engine and reopen the processed report through Explore.
+
+Generation runs in a dedicated cancelable worker. No new backend, AI, CDN or data upload is involved. `npm run test:builder` covers the complete browser ecosystem, blank return, sample reupload, mobile, accessibility and local-only processing. Builder tests also run under `npm test`. See BUILDER.md and TEST_REPORT.md for architecture, reconciliation and limitations.

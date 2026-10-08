@@ -109,3 +109,47 @@ Only exported Report Data fields/records can be recovered from disk; omitted fie
 The automation sandbox cancels download-to-disk automation. Parity tests therefore saved and reopened the real generated download Blob bytes; browser download controls remain functional and available. Native Excel UI checks were not repeated for this tier; independent XLSX parsing and existing native-chart XML regressions passed. Local synthetic workbooks, screenshots and timing JSON are ignored under `work/`.
 
 Existing Create New Report, current-session analytics, saved-report analytics and previous report presentation rules remain intact. See LIVE_ANALYTICS.md for schema, architecture, privacy and operating limits. Nothing was pushed or deployed.
+
+
+## Tier 4 — Business Workbook Builder (8 October 2026)
+
+### Implemented
+
+Third first-class Build entry; six guided activity-ledger templates and Custom; six guided steps; recommended/optional field selection; safe heading edits; add/remove/reorder with keyboard controls; 11 native field types; unique optional core roles; required flags and editable text dropdown lists; filename, date, number-input convention, ISO currency and capacity settings; structure/review previews; twin Blank/Sample actions; local cancelable worker and bounded ten-record sample preview.
+
+One schema engine feeds both outputs. Blank files contain only prepared empty cells with formats/validation, row-1 headers, freeze panes, bounded banding/Amount highlights and source AutoFilter. Sample files contain coherent fictional entity/product pools, stable IDs, weighted distributions, period-safe dates, signed events and reconciled precomputed numeric totals. Versioned hidden Builder metadata plus veryHidden lists support safe source recognition; matching unique headings preserves identities through reordering. Ambiguous changed fields require owner review rather than guessing.
+
+Direct sample handoff uses the existing source/report pipeline with roles prefilled and owner choices preserved. Filled blank return restores roles and excludes untouched prepared rows. Report Analysis, multi-grouping, dedicated native chart sheets, locked report AutoFilter and both Live Analytics adapters remain unchanged.
+
+### Files created / changed
+
+Created `src/builder-schema.js`, `builder-data.js`, `builder-output.js`, `builder-import.js`, `builder-worker.js`, `builder-view.js`, `builder.css`; `tests/builder.test.js`, `builder-browser.mjs`, `builder-fixtures.mjs`, `sample-path.js`; and `BUILDER.md`.
+
+Changed `index.html`, `src/app.js`, `src/worker.js`, `package.json`, `README.md`, this report; existing sample-based tests now share the same path resolver. The owner's reference workbook was renamed from `04 source-for tes.xlsx` to `9 source-for tes.xlsx` during this session; tests support the renamed file and `BF_SAMPLE_PATH` without changing business assertions. The Live browser entry-count assertion now expects three product entries. No dependency was added and no existing calculation engine was rewritten.
+
+### Checks and results
+
+- `npm test`: **40 passed, zero failures, zero skips** (30 existing tests + 10 Builder tests).
+- Six standard templates tested in both Blank and Sample modes; all 12 actual XLSX files independently reopened using openpyxl read-only inspection. Confirmed hidden metadata/lists, capacity, typed Amount/date cells, dropdown/numeric/date validations, freeze panes, AutoFilter, no formulas/macros/external connections and empty Blank records.
+- Capacity tests cover 100, 500, 1,000, 1,500, 2,000, 2,500, 5,000 and custom 137. Invalid lower/upper/non-integer capacities are rejected.
+- Custom checks cover add/remove through the schema/editor, rename, reorder, changed types/roles, uniqueness errors, unsafe text as literal strings, minimal general workbook and monetary-ready workbook.
+- Seeded 5,000-record datasets for every standard template verify reproducibility, inclusive leap-month dates, finite amounts, required values, customer/supplier/SKU relationships, sign semantics and sales/product/Complete quantity/price/rate reconciliation.
+- Blank return test fills exactly two records (+125.55 and −40.20), restores mappings and obtains **85.35 net** in the generated report and Live Analytics. Empty capacity rows are excluded.
+- Complete browser journey: Build 5,000 samples → Use in Business Flow without download/reupload → review prefilled roles → Group Analysis/native charts → report → current Live Analytics → save actual download bytes → reload → Explore → reopened Live Analytics. Counts and totals match independently summed source cents. Separate sample download/reupload also restores Amount/Date mapping.
+- Desktop and 390px mobile Builder paths tested, bounded DOM sample rows, state-preserving Back, visible/keyboard focus, duplicate/capacity validation and axe serious/critical checks. No browser errors or external data requests.
+- Six visible template sheets were rendered from their actual XLSX files with the bundled artifact renderer. Long references/descriptions, row heights, wrapping and integer quantity display were polished after inspection; hidden lists/metadata do not become presentation sheets.
+- Existing Create/Analysis, Live parity/security/edge tests and built-production smoke were checked; original 94-record sample remains **12,643.28 inflows / −10,367.01 outflows / 2,276.27 net**.
+
+### Reconciliation and performance
+
+Seeded Complete test: 5,000 records, **534,528.20 inflows / −316,931.43 outflows / 217,596.77 net**. Shared current and reopened analytics summaries match exactly. Report Data sum matches independently summed sample cents within floating-point tolerance; counts match exactly.
+
+Final built-browser sample: **567,470.50 inflows / -316,621.01 outflows / 250,849.49 net** across all 5,000 records. Generation/result readiness took **1.395 seconds** locally; a 25ms main-thread heartbeat continued during worker generation. Other local runs took approximately 0.85–1.4 seconds. These are machine-specific observations, not guarantees. Only ten sample preview rows are rendered. Peak memory was not instrumented; obsolete workers, datasets and Blob URLs are released on navigation/cancellation.
+
+### Limitations
+
+Microsoft Excel COM activation was attempted and returned `E_ACCESSDENIED`; native Excel repair-dialog and interactive dropdown behavior could not be certified in this environment. Actual file structure, independent parsing, native types/validation definitions and rendered layout passed. The sandbox cancels automatic downloads to disk, so tests save/reopen the exact bytes behind the real download links. Native validation may be bypassed by pasting and does not force complete rows; existing data-quality handling remains active.
+
+Initial maximum is 5,000 rows/64 fields. Blank derived totals are owner-entered (automatic formulas are optional in the instruction and were not added); sample values are precomputed numeric values. Advanced profiles, multi-currency simulation, exchange conversion, ERP/database/accounts/cloud/AI and arbitrary formulas are excluded. Original Create/Explore operating limits still apply. Excel controls native numeric separators; the setting is explicitly labeled as a text-input convention.
+
+No business data leaves the browser. No AI/API/backend dependency was added. No Git commit/push or deployment was performed.
