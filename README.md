@@ -92,3 +92,16 @@ Export header and alternate-row fills apply only to selected report cells. Amoun
 
 All exported tables and KPI cards use left-aligned, vertically centered cells. Monetary displays use two decimal places while counts remain whole numbers. Analysis - Summary contains the tables; Analysis - Charts contains all analysis and optional group charts. Frozen navigation links connect the sheets and group tables.
 
+
+
+## Live Analytics — Tier 3
+
+The homepage provides Create New and Explore Existing paths. Generated results offer Open Live Analytics alongside Download Excel. Reopening a saved workbook uses Report Data and hidden versioned `_BF_Metadata`, or a short explicit role-confirmation screen for older files. Derived Analysis totals and chart caches are not scraped as the data source.
+
+One `live-engine.js` accepts normalized records from both adapters and reuses `analysis.js` for KPIs, time buckets, grouping and rankings. A dedicated worker recomputes analytics independently of XLSX generation. Chart.js is bundled locally; there is no CDN, AI, login or server-processing dependency.
+
+Overview, Flow, Trends, Groups, Transactions and Analytics Explorer provide currency-safe KPIs, time comparisons, flow mix, cumulative/volume trends, rankings, concentration, largest transactions, focused group details and interactive exploration. Global period/value/currency filters apply consistently. Reset returns to all data in the selected report, not records excluded when that report was originally generated.
+
+Include Report Data and Amount in exported columns to reopen a monetary report later. Current-session analytics can use omitted source fields; reopened files can use only fields actually exported. No omitted source data is silently saved. Date is optional; unavailable time features are disabled. Legacy reports require Amount confirmation and explicit regional number/date choices.
+
+`npm run test:live` runs browser parity, accessibility, chart-value, security and edge-case checks. `npm run test:performance` benchmarks 1k/10k/50k file parsing and browser updates; `npm test` includes shared-engine/metadata/ZIP-guard tests. Details and limitations are in LIVE_ANALYTICS.md and TEST_REPORT.md.

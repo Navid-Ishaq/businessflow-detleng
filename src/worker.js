@@ -1,1 +1,28 @@
-import ExcelJS from 'exceljs';import {inspect,columns,prepare} from './engine.js';import {generate} from './export.js';let workbook;self.onmessage=async({data:m})=>{try{if(m.type==='load'){self.postMessage({type:'progress',stage:'Reading workbook contents locally�'});workbook=new ExcelJS.Workbook();await workbook.xlsx.load(m.buffer);self.postMessage({type:'loaded',sheets:workbook.worksheets.map(s=>s.name)});}if(m.type==='sheet'){const model=inspect(workbook.getWorksheet(m.name));model.date1904=!!workbook.properties.date1904;self.postMessage({type:'model',model});}if(m.type==='generate'){const model=m.model;model.columns=columns(model.rows,model.header);const data=prepare(model,m.config);const buffer=await generate(model,m.config,data,stage=>self.postMessage({type:'progress',stage}));self.postMessage({type:'result',buffer,data});}}catch(e){self.postMessage({type:'error',message:m.type==='load'?'Workbook could not be read. Use an unencrypted .xlsx file.':e.message});}};
+import ExcelJS from 'exceljs';
+import {inspect,columns,prepare} from './engine.js';
+import {generate} from './export.js';
+import {detectReport,importDataset} from './report-import.js';
+import {guardWorkbook} from './workbook-guard.js';
+let workbook,detected;
+self.onmessage=async({data:m})=>{
+  const progress=stage=>self.postMessage({type:'progress',stage});
+  try{
+    if(m.type==='load'||m.type==='existing-load'){
+      progress('Reading workbook contents locally…');guardWorkbook(m.buffer);workbook=new ExcelJS.Workbook();detected=null;await workbook.xlsx.load(m.buffer);
+      if(m.type==='load')self.postMessage({type:'loaded',sheets:workbook.worksheets.filter(s=>s.name!=='_BF_Metadata').map(s=>s.name)});
+      else{
+        progress('Validating Business Flow structure…');detected=detectReport(workbook);progress('Loading Report Data and normalizing records…');
+        if(detected.kind==='verified')self.postMessage({type:'existing-ready',dataset:importDataset(detected,null,m.name)});
+        else self.postMessage({type:'existing-detected',detected:{columns:detected.model.columns,warning:detected.warning}});
+      }
+    }
+    if(m.type==='existing-confirm'){
+      if(!detected)throw Error('Choose the report file again to restore the compatibility session.');
+      if(Object.entries(m.roles).some(([,id])=>!detected.model.columns.some(c=>c.id===id)))throw Error('Choose valid columns for the report roles.');
+      detected.numberStyle=m.numberStyle;detected.dateOrder=m.dateOrder;
+      self.postMessage({type:'existing-ready',dataset:importDataset(detected,m.roles,m.name)});
+    }
+    if(m.type==='sheet'){const model=inspect(workbook.getWorksheet(m.name));model.date1904=!!workbook.properties.date1904;self.postMessage({type:'model',model});}
+    if(m.type==='generate'){const model=m.model;model.columns=columns(model.rows,model.header);const data=prepare(model,m.config);const buffer=await generate(model,m.config,data,progress);self.postMessage({type:'result',buffer,data});}
+  }catch(e){const known=/Business Flow|Report Data|report exceeds|Workbook contents exceed|Workbook is too complex|Encrypted workbooks|unsupported large-file|ZIP structure/.test(e.message||'');self.postMessage({type:'error',message:(m.type==='load'||m.type==='existing-load')&&!known?'Workbook could not be read. Use an unencrypted .xlsx file.':e.message});}
+};
