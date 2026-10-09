@@ -27,7 +27,7 @@ export function detectReport(workbook){
   if(metadata.product!=='DeTleng Business Flow'||metadata.reportSheet!=='Report Data'||metadata.headerRow!==1||!Array.isArray(metadata.columns)||metadata.columns.length!==sheet.columnCount)throw Error('Business Flow metadata does not match Report Data. Confirm the workbook was not structurally changed.');
   const ids=new Set(),positions=new Set();for(const col of metadata.columns){if(!col||!Number.isInteger(col.id)||col.id<0||col.id>255||ids.has(col.id)||col.key!==`column_${col.id+1}`||!Number.isInteger(col.position)||col.position<1||col.position>sheet.columnCount||positions.has(col.position)||String(rows[0][col.position-1]??'')!==col.label)throw Error('Business Flow metadata refers to a missing or changed column.');ids.add(col.id);positions.add(col.position);}
   if(!metadata.roles||Object.entries(metadata.roles).some(([role,id])=>!ROLES.includes(role)||!ids.has(id))||new Set(Object.values(metadata.roles)).size!==Object.values(metadata.roles).length)throw Error('Business Flow role mappings are invalid.');
-  if(metadata.roles.Amount==null)return {kind:'compatible',model,warning:'The saved report does not include a mapped Amount column. Confirm a usable column below.'};
+  if(metadata.roles.Amount==null)return {kind:'compatible',model,metadata,warning:'The saved report does not include a mapped Amount column. Confirm a usable column below.'};
   const restoredRows=rows.map(row=>{const next=[];for(const col of metadata.columns)next[col.id]=row[col.position-1];return next;});
   return {kind:'verified',model:{...model,rows:restoredRows,columns:metadata.columns.map(c=>({...c,samples:[]}))},metadata};
 }

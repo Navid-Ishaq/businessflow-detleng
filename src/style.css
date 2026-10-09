@@ -2,3 +2,5 @@
 .loading-status{display:flex;gap:16px;align-items:center}.activity{width:24px;height:24px;flex-shrink:0;border:3px solid var(--line);border-top-color:var(--teal);border-radius:50%;animation:processing-spin 1s linear infinite}@keyframes processing-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.activity{animation:none}}
 
 .period-options{border:0;padding:0;margin:24px 0}.period-options legend{font-weight:700;margin-bottom:12px}.period-buttons{display:flex;flex-wrap:wrap;gap:10px}.period-buttons [aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}#review-details{margin:24px 0}
+
+.role-intro{padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:#eef6e8;margin:20px 0}.role-intro p{margin:4px 0}.role-hint{display:inline-block;font-size:12px;font-weight:600;color:#315d49;background:#eef6e8;padding:3px 8px;border-radius:30px;margin-left:8px}

@@ -123,3 +123,9 @@ Generation runs in a dedicated cancelable worker. No new backend, AI, CDN or dat
 The optional **Business Flow Quick Guide** explains Build, Create, reporting, Live Analytics and saved-report return through short interactive scenes. **Behind Business Flow** separately tells the product's origin and evolution. Both preserve the workflow underneath them, support keyboard/Escape and reduced motion, and use fictional examples only.
 
 See [EXPERIENCES.md](EXPERIENCES.md) for architecture, state safety, verification and limitations. Run `npm run test:experiences` and `node tests/experience-quality.mjs` for the new browser checks.
+
+
+### Smart column roles
+The Roles step suggests supported mappings using normalized multilingual headings and bounded samples (up to 128 nonblank values in the first 256 data rows). Validated Builder and saved-report metadata takes precedence and appears as Recognized; heuristics appear as Suggested. Multiple plausible Amount or Date fields remain unassigned with review guidance. Continue accepts the visible mappings without an extra confirmation. Manual changes, including No role, survive Back/Forward; a new source or header starts fresh. Unmapped columns remain ordinary report and Group By fields. Unknown aliases and unsupported currency codes may need manual mapping. Processing remains local and deterministic.
+
+Run `npm run test:roles` for the owner workbook upload, manual overrides, mobile/accessibility, report generation, metadata recognition and ambiguity journey. The local fixture is `C:/Users/mnvid/Downloads/Test Business Flow.xlsx`; its unit test skips when unavailable in CI.

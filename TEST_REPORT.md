@@ -175,3 +175,12 @@ Implemented the owner-facing Interactive Quick Guide first and verified it befor
 Limitations: illustrative guide scenarios and charts explain interactions; they do not process the owner's workbook. Target reading durations have not been confirmed in an independent user study. Automated axe/browser checks and visual inspection do not constitute a dedicated screen-reader or physical-device audit. Existing sandbox restrictions cancel automated downloads to disk; existing tests inspect the actual generated workbook bytes and reopen them.
 
 No real financial/private records appear in either new experience. Business data processing remains local. No commit, GitHub push or deployment was performed for Tier 5/6. Project HEAD remained 01e60f4.
+
+
+### Smart role suggestions — 2026-10-09
+- Owner workbook: 229 transactions. Date, Reference, Description, Details, Category, Amount, Currency and Notes suggested; Bank Balance additionally maps to Balance. Unsupported extra business fields remain No role and selected for reporting.
+- Independently reconciled totals: inflows 42,067.96; outflows -31,548.37; net 10,519.59.
+- Tests cover multilingual/case/punctuation aliases, reordered/duplicate headings, contradictory types, Amount/Date ambiguity, strong date/currency patterns, 200k-row bounded sampling, valid/stale report metadata, missing Amount metadata, manual clear/reassignment and Back/Forward persistence.
+- Browser upload → automatic roles → generation → saved report re-upload passed; desktop/mobile screenshots saved under work/smart-roles-*.png. Roles axe audit and zero external request checks passed.
+- Existing browser, Live Analytics, Builder, Quick Guide and Behind Business Flow regression journeys passed. Unit regression, production build and static production smoke verified.
+- No backend, API, AI call or new dependency. No push or deployment performed. Suggestions are conservative; unfamiliar headings, unsupported currency codes or conflicting date/amount fields require owner mapping.
